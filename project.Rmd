@@ -1,0 +1,50 @@
+---
+title: "Information on States of U.S"
+author: "Saif Ul Mehdi"
+date: "17/07/2020"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## A Shiny Application
+
+- The shiny application pitched in this presentation is (https://saif178.shinyapps.io/Project1/)
+
+- The Shiny app source code is (https://github.com/Saif178/Course_Project)
+
+## What does the app do?
+- Allows you to visualise the population and life expectancy of US states in using the US State Facts and Figures dataset. 
+
+- You can use sliders to select a population and life expectancy range to display and checkboxes to show different regions
+
+- The output is an interactive map of the US showing the states that satisfy the selected criteria.
+
+## Under the hood
+```{r}
+pop<-state.x77[,1]
+lexp<-state.x77[,4]
+states<-data.frame(state.name, pop, lexp, state.region,
+                     hover=paste(state.name,':', 
+                                  pop,lexp,'years',sep=' '))
+states$hover<-as.character(states$hover)
+```
+
+- A data frame called `states` was created using the vectors from the US Facts and Figures Dataset.
+
+- A fourth column (`hover`) was added for the interactivity of the map.
+
+```{r, echo=TRUE, comment=''}
+head(states)
+```
+
+## Output
+- The slider values and checkbox values are used to filter the dataset using the `state.name` and `state.region` columns before creating the map.
+
+- The output is a googlevis interactive map.
+
+- The states turn green when they satisfy the selected criteria (slider and checkboxes)
+
+- When each green state is hovered over, the name and area of the state is displayed.
